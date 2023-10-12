@@ -1,59 +1,92 @@
 import React from 'react';
-import { Space, Select, Input, Divider, Button } from 'antd';
+import { Space, Select, Input, Divider, Button, Spin } from 'antd';
+
+import { DEMO_ENDPOINT } from '../../constants/endpoints';
+import { postData } from '../../utils/fetcher';
 
 const { useState, useEffect } = React;
 
-const defaultNumPlaintexts = 4;
-const defaultSpeckRounds = 5
-const defaultPlaintext = '00000000';
+const defaultNumCiphertexts = 4;
+const defaultNumRounds = 5
+const defaultCiphertext = '00000000';
 
-const numPlaintextsOptions = [4, 8].map((value) => ({
+const numCiphertextsOptions = [4, 8].map((value) => ({
     value: value,
     label: `${value}`
 }))
 
-const speckRoundsOptions = [5, 6, 7, 8].map((value) => ({
+const numRoundsOptions = [5, 6, 7, 8].map((value) => ({
     value: value,
     label: `${value}`
 }))
+
+const renderResponseData = (responseData) => {
+    const { numCiphertexts, pred, prob } = responseData;
+    const realOrRandom = pred ? 'real' : 'random';
+    const predColor = pred ? '#52c41a' : '#f5222d';
+    const quartetOrOctet = numCiphertexts === 4 ? 'quartet' : 'octet'
+    return (
+        <div>
+            <h2>This is a <span style={{color: `${predColor}`}}>{realOrRandom}</span> ciphertext {quartetOrOctet}.</h2>
+            <p>Probability: {prob}</p>
+        </div>
+    )
+}
 
 const Demo = () => {
-    const [numPlaintexts, setNumPlaintexts] = useState(defaultNumPlaintexts);
-    const [plaintexts, setPlaintexts] = useState(Array(defaultNumPlaintexts).fill('00000000'));
-    const [speckRounds, setSpeckRounds] = useState(defaultSpeckRounds);
-    const handleSelectNumPlaintexts = (value) => {
-        const numPlaintexts = parseInt(value);
-        setNumPlaintexts(numPlaintexts);
+    const [numCiphertexts, setNumCiphertexts] = useState(defaultNumCiphertexts);
+    const [ciphertexts, setCiphertexts] = useState(Array(defaultNumCiphertexts).fill('00000000'));
+    const [numRounds, setNumRounds] = useState(defaultNumRounds);
+    const [isLoading, setIsLoading] = useState(false);
+    const [responseData, setResponseData] = useState(null);
+    const handleSelectNumCiphertexts = (value) => {
+        const numCiphertexts = parseInt(value);
+        setNumCiphertexts(numCiphertexts);
     }
-    const handleSelectSpeckRounds = (value) => {
-        const speckRounds = parseInt(value);
-        setSpeckRounds(speckRounds);
+    const handleSelectNumRounds = (value) => {
+        const numRounds = parseInt(value);
+        setNumRounds(numRounds);
     }
     useEffect(() => {
-        setPlaintexts(Array(numPlaintexts).fill(defaultPlaintext));
-    }, [numPlaintexts]);
+        setCiphertexts(Array(numCiphertexts).fill(defaultCiphertext));
+    }, [numCiphertexts]);
     const handleInputChange = (e) => {
-        const newPlaintexts = [...plaintexts];
+        const newCiphertexts = [...ciphertexts];
         const i = parseInt(e.target.id);
-        newPlaintexts[i - 1] = e.target.value;
-        setPlaintexts(newPlaintexts);
+        newCiphertexts[i - 1] = e.target.value;
+        setCiphertexts(newCiphertexts);
     }
-    const renderInputFields = (numPlaintexts) => {
+    const renderInputFields = (numCiphertexts) => {
         const inputFields = [];
-        for (let i = 0; i < numPlaintexts / 4; i++) {
+        for (let i = 0; i < numCiphertexts / 4; i++) {
             inputFields.push(
                 <Space key={`sp-${i}`}style={{ width: 'calc(50% - 20px)'}} direction="vertical">
-                    <Input id={`${(i * 4) + 1}`} onChange={handleInputChange} style={{ width: 'calc(100% - 20px)' }} addonBefore="0x" defaultValue={defaultPlaintext} value={plaintexts[(i * 4) + 1 - 1]} />
-                    <Input id={`${(i * 4) + 2}`} onChange={handleInputChange} style={{ width: 'calc(100% - 20px)' }} addonBefore="0x" defaultValue={defaultPlaintext} value={plaintexts[(i * 4) + 2 - 1]} />
-                    <Input id={`${(i * 4) + 3}`} onChange={handleInputChange} style={{ width: 'calc(100% - 20px)' }} addonBefore="0x" defaultValue={defaultPlaintext} value={plaintexts[(i * 4) + 3 - 1]} />
-                    <Input id={`${(i * 4) + 4}`} onChange={handleInputChange} style={{ width: 'calc(100% - 20px)' }} addonBefore="0x" defaultValue={defaultPlaintext} value={plaintexts[(i * 4) + 4 - 1]} />
+                    <Input id={`${(i * 4) + 1}`} onChange={handleInputChange} style={{ width: 'calc(100% - 20px)' }} addonBefore="0x" defaultValue={defaultCiphertext} value={ciphertexts[(i * 4) + 1 - 1]} />
+                    <Input id={`${(i * 4) + 2}`} onChange={handleInputChange} style={{ width: 'calc(100% - 20px)' }} addonBefore="0x" defaultValue={defaultCiphertext} value={ciphertexts[(i * 4) + 2 - 1]} />
+                    <Input id={`${(i * 4) + 3}`} onChange={handleInputChange} style={{ width: 'calc(100% - 20px)' }} addonBefore="0x" defaultValue={defaultCiphertext} value={ciphertexts[(i * 4) + 3 - 1]} />
+                    <Input id={`${(i * 4) + 4}`} onChange={handleInputChange} style={{ width: 'calc(100% - 20px)' }} addonBefore="0x" defaultValue={defaultCiphertext} value={ciphertexts[(i * 4) + 4 - 1]} />
                 </Space>
             )
         }
         return inputFields
     }
-    const handleSubmit = () => {
-        console.log('numPlaintexts:', numPlaintexts, 'plaintexts:', plaintexts, 'speckRounds:', speckRounds);
+    const handleSubmit = async () => {
+        setIsLoading(true);
+        console.log('numCiphertexts:', numCiphertexts, 'ciphertexts:', ciphertexts, 'numRounds:', numRounds);
+        const data = {
+            numCiphertexts,
+            ciphertexts,
+            numRounds
+        }
+        try {
+            const responseData = await postData(DEMO_ENDPOINT, data);
+            setResponseData(responseData)
+            console.log('responseData:', responseData)
+        } catch (err) {
+            console.log('Error occurred:', err)
+        } finally {
+            setIsLoading(false);
+        }
     }
     return (
         <div>
@@ -61,13 +94,22 @@ const Demo = () => {
             <Divider />
             <div style={{textAlign: 'center'}}>
                 <br></br>
-                <p>Input <Select defaultValue={defaultNumPlaintexts} onChange={handleSelectNumPlaintexts} style={{ width: '60px'}} options={numPlaintextsOptions}/> <b>32-bit</b> plaintexts for <Select defaultValue={defaultSpeckRounds} onChange={handleSelectSpeckRounds} style={{ width: '60px'}} options={speckRoundsOptions}/> rounds of Speck: </p>
+                <p>Input <Select defaultValue={defaultNumCiphertexts} onChange={handleSelectNumCiphertexts} style={{ width: '60px'}} options={numCiphertextsOptions}/> <b>32-bit</b> ciphertexts for <Select defaultValue={defaultNumRounds} onChange={handleSelectNumRounds} style={{ width: '60px'}} options={numRoundsOptions}/> rounds of Speck: </p>
                 <br></br>
-                {renderInputFields(numPlaintexts)}
+                {renderInputFields(numCiphertexts)}
                 <br></br>
                 <br></br>
                 <br></br>
                 <Button onClick={handleSubmit} style={{width: 'calc(20% - 20px)', minWidth:'200px'}} type="primary" block>Run ND</Button>
+            </div>
+            <br></br>
+            <Divider />
+            <div style={{margin: '70px 0', textAlign: 'center'}}>
+                {isLoading ? (
+                    <Spin tip="Loading" size="large">
+                        <div className="content" />
+                    </Spin>
+                ) : responseData ? renderResponseData(responseData) : (<div></div>)}
             </div>
         </div>
     )
