@@ -42,7 +42,11 @@ const columns = [
 ]
 
 const renderResponseData = (responseData) => {
-    return (<Table dataSource={responseData} columns={columns} bordered />)
+    return (
+        <div>
+            <Table dataSource={responseData} columns={columns} bordered />
+        </div>
+    )
 }
 
 const Eval = () => {

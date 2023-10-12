@@ -2,12 +2,13 @@ import React from 'react';
 // import './style.css';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { Layout, Menu, Button } from 'antd';
-import { HomeOutlined, GatewayOutlined, FundOutlined, MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
+import { HomeOutlined, GatewayOutlined, DesktopOutlined, FundOutlined, MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
 
 import Home from '../Home';
-import Eval from '../Eval';
+import Speck from '../Speck';
 import Demo from '../Demo';
-import { HOME_ROUTE, EVAL_ROUTE, DEMO_ROUTE } from '../../constants/routes';
+import Eval from '../Eval';
+import { HOME_ROUTE, SPECK_ROUTE, DEMO_ROUTE, EVAL_ROUTE } from '../../constants/routes';
 
 const { Header, Content, Footer, Sider } = Layout;
 const { useState } = React
@@ -18,8 +19,12 @@ const items = [{
     icon: React.createElement(HomeOutlined),
     label: 'Home',
 }, {
-    key: DEMO_ROUTE,
+    key: SPECK_ROUTE,
     icon: React.createElement(GatewayOutlined),
+    label: 'Speck 32/64',
+}, {
+    key: DEMO_ROUTE,
+    icon: React.createElement(DesktopOutlined),
     label: 'Demo',
 }, {
     key: EVAL_ROUTE,
@@ -81,6 +86,7 @@ const NavBar = () => {
             >
                 <Routes>
                     <Route exact path={HOME_ROUTE} element={<Home />} />
+                    <Route path={SPECK_ROUTE} element={<Speck />} />
                     <Route path={DEMO_ROUTE} element={<Demo />} />
                     <Route path={EVAL_ROUTE} element={<Eval />} />
                 </Routes>
