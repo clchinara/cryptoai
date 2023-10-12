@@ -1,5 +1,8 @@
 import React from 'react';
-import { Divider, Select, Button } from 'antd';
+import { Divider, Select, Button, Table, Spin } from 'antd';
+
+import { EVAL_ENDPOINT } from '../../constants/endpoints';
+import { postData } from '../../utils/fetcher';
 
 const { useState } = React;
 
@@ -10,13 +13,58 @@ const invOptions = ['inv1', 'inv3'].map((value) => ({
     label: value
 }))
 
+const columns = [
+    {
+        title: 'Rounds', 
+        dataIndex: 'rounds',
+        rowScope: 'row',
+    }, 
+    {
+        title: 'Accuracy',
+        dataIndex: 'acc',
+        key: 'acc'
+    }, 
+    {
+        title: 'TPR',
+        dataIndex: 'tpr',
+        key: 'tpr'
+    },
+    {
+        title: 'TNR',
+        dataIndex: 'tnr',
+        key: 'tnr'
+    },
+    {
+        title: 'MSE',
+        dataIndex: 'mse',
+        key: 'mse'
+    }
+]
+
+const renderResponseData = (responseData) => {
+    return (<Table dataSource={responseData} columns={columns} bordered />)
+}
+
 const Eval = () => {
     const [inv, setInv] = useState(defaultInv);
+    const [isLoading, setIsLoading] = useState(false);
+    const [responseData, setResponseData] = useState(null);
     const handleSelect = (value) => {
         setInv(value);
     }
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
+        setIsLoading(true);
         console.log('inv:', inv);
+        const data = { inv }
+        try {
+            const responseData = await postData(EVAL_ENDPOINT, data);
+            setResponseData(responseData);
+            console.log('responseData:', responseData);
+        } catch (err) {
+            console.log('Error occurred:', err)
+        } finally {
+            setIsLoading(false);
+        }
     }
     return (
         <div>
@@ -24,9 +72,17 @@ const Eval = () => {
             <Divider />
             <div style={{textAlign: 'center'}}>
                 <br></br>
-                <p>Evaluate <Select defaultValue={defaultInv} onChange={handleSelect} style={{ width: '80px'}} options={invOptions}/> ND model. </p>
+                <p>Evaluate our <Select defaultValue={defaultInv} onChange={handleSelect} style={{ width: '80px'}} options={invOptions}/> ND model. </p>
                 <br></br>
                 <Button onClick={handleSubmit} style={{width: 'calc(20% - 20px)', minWidth:'200px'}} type="primary" block>Run Eval</Button>
+            </div>
+            <Divider />
+            <div style={{margin: '70px 0', textAlign: 'center'}}>
+                {isLoading ? (
+                    <Spin tip="Loading" size="large">
+                        <div className="content" />
+                    </Spin>
+                ) : responseData ? renderResponseData(responseData) : (<div></div>)}
             </div>
         </div>
     )
