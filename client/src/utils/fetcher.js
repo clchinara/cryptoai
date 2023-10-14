@@ -9,12 +9,8 @@ export const postData = async (url, data) => {
 
     try {
         const response = await fetch(url, options);
-        if (!response.ok) {
-            throw new Error('Response not ok');
-        }
-        const responseData = await response.json();
-        return responseData;
-    } catch (err) {
+        return await response.json();
+    } catch (err) { // for unhandled error codes
         throw err;
     }
 }
