@@ -53,19 +53,27 @@ const Eval = () => {
     const [inv, setInv] = useState(defaultInv);
     const [isLoading, setIsLoading] = useState(false);
     const [responseData, setResponseData] = useState(null);
+    const [errorMessage, setErrorMessage] = useState(null);
     const handleSelect = (value) => {
         setInv(value);
     }
     const handleSubmit = async () => {
+        setErrorMessage(null);
         setIsLoading(true);
         console.log('inv:', inv);
         const data = { inv }
         try {
-            const responseData = await postData(EVAL_ENDPOINT, data);
-            setResponseData(responseData);
-            console.log('responseData:', responseData);
+            const response = await postData(EVAL_ENDPOINT, data);
+            const { data: responseData, isSuccess, message } = response
+            if (isSuccess) {
+                setResponseData(responseData)
+                console.log('responseData:', responseData)
+            } else {
+                throw new Error(message)
+            }
         } catch (err) {
-            console.log('Error occurred:', err)
+            setErrorMessage(err.message)
+            console.log('err:', err.message)
         } finally {
             setIsLoading(false);
         }
@@ -79,6 +87,10 @@ const Eval = () => {
                 <p>Evaluate our <Select defaultValue={defaultInv} onChange={handleSelect} style={{ width: '80px'}} options={invOptions}/> ND model. </p>
                 <br></br>
                 <Button onClick={handleSubmit} style={{width: 'calc(20% - 20px)', minWidth:'200px'}} type="primary" block>Run Eval</Button>
+            </div>
+            <br></br>
+            <div style={{textAlign: 'center', margin: '10px 0'}}>
+                <span style={{color: '#f5222d'}}>{errorMessage}</span>
             </div>
             <br></br>
             <Divider />

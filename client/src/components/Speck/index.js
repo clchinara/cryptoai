@@ -36,6 +36,7 @@ const Demo = () => {
     const [numRounds, setNumRounds] = useState(defaultNumRounds);
     const [isLoading, setIsLoading] = useState(false);
     const [responseData, setResponseData] = useState(null);
+    const [errorMessage, setErrorMessage] = useState(null);
     const handleSelectNumPlaintexts = (value) => {
         const numPlaintexts = parseInt(value);
         setNumPlaintexts(numPlaintexts);
@@ -68,6 +69,7 @@ const Demo = () => {
         return inputFields
     }
     const handleSubmit = async () => {
+        setErrorMessage(null);
         setIsLoading(true);
         console.log('numPlaintexts:', numPlaintexts, 'plaintexts:', plaintexts, 'numRounds:', numRounds);
         const data = {
@@ -76,11 +78,17 @@ const Demo = () => {
             numRounds
         }
         try {
-            const responseData = await postData(SPECK_ENDPOINT, data);
-            setResponseData(responseData)
-            console.log('responseData:', responseData)
+            const response = await postData(SPECK_ENDPOINT, data);
+            const { data: responseData, isSuccess, message } = response
+            if (isSuccess) {
+                setResponseData(responseData)
+                console.log('responseData:', responseData)
+            } else {
+                throw new Error(message)
+            }
         } catch (err) {
-            console.log('Error occurred:', err)
+            setErrorMessage(err.message)
+            console.log('err:', err.message)
         } finally {
             setIsLoading(false);
         }
@@ -98,6 +106,10 @@ const Demo = () => {
                 <br></br>
                 <br></br>
                 <Button onClick={handleSubmit} style={{width: 'calc(20% - 20px)', minWidth:'200px'}} type="primary" block>Run Encryption</Button>
+            </div>
+            <br></br>
+            <div style={{textAlign: 'center', margin: '10px 0'}}>
+                <span style={{color: '#f5222d'}}>{errorMessage}</span>
             </div>
             <br></br>
             <Divider />
