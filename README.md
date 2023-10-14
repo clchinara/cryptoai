@@ -9,7 +9,6 @@ cd client
 
 Make sure you have NPM installed. Then, install the dependencies:
 ```bash
-cd client
 npm install
 ```
 
