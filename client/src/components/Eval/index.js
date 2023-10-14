@@ -80,6 +80,7 @@ const Eval = () => {
                 <br></br>
                 <Button onClick={handleSubmit} style={{width: 'calc(20% - 20px)', minWidth:'200px'}} type="primary" block>Run Eval</Button>
             </div>
+            <br></br>
             <Divider />
             <div style={{margin: '70px 0', textAlign: 'center'}}>
                 {isLoading ? (
