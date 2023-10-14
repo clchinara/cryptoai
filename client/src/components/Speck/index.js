@@ -70,6 +70,7 @@ const Demo = () => {
     }
     const handleSubmit = async () => {
         setErrorMessage(null);
+        setResponseData(null);
         setIsLoading(true);
         console.log('numPlaintexts:', numPlaintexts, 'plaintexts:', plaintexts, 'numRounds:', numRounds);
         const data = {

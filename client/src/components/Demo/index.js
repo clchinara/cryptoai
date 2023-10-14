@@ -73,6 +73,7 @@ const Demo = () => {
     }
     const handleSubmit = async () => {
         setErrorMessage(null);
+        setResponseData(null);
         setIsLoading(true);
         console.log('numCiphertexts:', numCiphertexts, 'ciphertexts:', ciphertexts, 'numRounds:', numRounds);
         const data = {

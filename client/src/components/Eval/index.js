@@ -59,6 +59,7 @@ const Eval = () => {
     }
     const handleSubmit = async () => {
         setErrorMessage(null);
+        setResponseData(null);
         setIsLoading(true);
         console.log('inv:', inv);
         const data = { inv }
