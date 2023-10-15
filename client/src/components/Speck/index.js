@@ -59,10 +59,10 @@ const Demo = () => {
         for (let i = 0; i < numPlaintexts / 4; i++) {
             inputFields.push(
                 <Space key={`sp-${i}`}style={{ width: 'calc(50% - 20px)'}} direction="vertical">
-                    <Input id={`${(i * 4) + 1}`} onChange={handleInputChange} style={{ width: 'calc(100% - 20px)' }} addonBefore="0x" defaultValue={defaultPlaintext} value={plaintexts[(i * 4) + 1 - 1]} />
-                    <Input id={`${(i * 4) + 2}`} onChange={handleInputChange} style={{ width: 'calc(100% - 20px)' }} addonBefore="0x" defaultValue={defaultPlaintext} value={plaintexts[(i * 4) + 2 - 1]} />
-                    <Input id={`${(i * 4) + 3}`} onChange={handleInputChange} style={{ width: 'calc(100% - 20px)' }} addonBefore="0x" defaultValue={defaultPlaintext} value={plaintexts[(i * 4) + 3 - 1]} />
-                    <Input id={`${(i * 4) + 4}`} onChange={handleInputChange} style={{ width: 'calc(100% - 20px)' }} addonBefore="0x" defaultValue={defaultPlaintext} value={plaintexts[(i * 4) + 4 - 1]} />
+                    <Input data-testid={`input-${(i * 4) + 1}`} id={`${(i * 4) + 1}`} onChange={handleInputChange} style={{ width: 'calc(100% - 20px)' }} addonBefore="0x" defaultValue={defaultPlaintext} value={plaintexts[(i * 4) + 1 - 1]} />
+                    <Input data-testid={`input-${(i * 4) + 2}`} id={`${(i * 4) + 2}`} onChange={handleInputChange} style={{ width: 'calc(100% - 20px)' }} addonBefore="0x" defaultValue={defaultPlaintext} value={plaintexts[(i * 4) + 2 - 1]} />
+                    <Input data-testid={`input-${(i * 4) + 3}`} id={`${(i * 4) + 3}`} onChange={handleInputChange} style={{ width: 'calc(100% - 20px)' }} addonBefore="0x" defaultValue={defaultPlaintext} value={plaintexts[(i * 4) + 3 - 1]} />
+                    <Input data-testid={`input-${(i * 4) + 4}`} id={`${(i * 4) + 4}`} onChange={handleInputChange} style={{ width: 'calc(100% - 20px)' }} addonBefore="0x" defaultValue={defaultPlaintext} value={plaintexts[(i * 4) + 4 - 1]} />
                 </Space>
             )
         }
@@ -100,13 +100,13 @@ const Demo = () => {
             <Divider />
             <div style={{textAlign: 'center'}}>
                 <br></br>
-                <p>Input <Select defaultValue={defaultNumPlaintexts} onChange={handleSelectNumPlaintexts} style={{ width: '60px'}} options={numPlaintextsOptions}/> <b>32-bit</b> plaintexts for <Select defaultValue={defaultNumRounds} onChange={handleSelectNumRounds} style={{ width: '60px'}} options={numRoundsOptions}/> rounds of Speck: </p>
+                <p>Input <Select data-testid='numPlaintexts' defaultValue={defaultNumPlaintexts} onChange={handleSelectNumPlaintexts} style={{ width: '60px'}} options={numPlaintextsOptions}/> <b>32-bit</b> plaintexts for <Select data-testid='numRounds' defaultValue={defaultNumRounds} onChange={handleSelectNumRounds} style={{ width: '60px'}} options={numRoundsOptions}/> rounds of Speck: </p>
                 <br></br>
                 {renderInputFields(numPlaintexts)}
                 <br></br>
                 <br></br>
                 <br></br>
-                <Button onClick={handleSubmit} style={{width: 'calc(20% - 20px)', minWidth:'200px'}} type="primary" block>Run Encryption</Button>
+                <Button data-testid='submitSpeck' onClick={handleSubmit} style={{width: 'calc(20% - 20px)', minWidth:'200px'}} type="primary" block>Run Encryption</Button>
             </div>
             <br></br>
             <div style={{textAlign: 'center', margin: '10px 0'}}>

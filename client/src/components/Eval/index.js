@@ -85,9 +85,9 @@ const Eval = () => {
             <Divider />
             <div style={{textAlign: 'center'}}>
                 <br></br>
-                <p>Evaluate our <Select defaultValue={defaultInv} onChange={handleSelect} style={{ width: '80px'}} options={invOptions}/> ND model. </p>
+                <p>Evaluate our <Select data-testid='inv' defaultValue={defaultInv} onChange={handleSelect} style={{ width: '80px'}} options={invOptions}/> ND model. </p>
                 <br></br>
-                <Button onClick={handleSubmit} style={{width: 'calc(20% - 20px)', minWidth:'200px'}} type="primary" block>Run Eval</Button>
+                <Button data-testid='submitEval' onClick={handleSubmit} style={{width: 'calc(20% - 20px)', minWidth:'200px'}} type="primary" block>Run Eval</Button>
             </div>
             <br></br>
             <div style={{textAlign: 'center', margin: '10px 0'}}>

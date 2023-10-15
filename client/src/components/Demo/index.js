@@ -62,10 +62,10 @@ const Demo = () => {
         for (let i = 0; i < numCiphertexts / 4; i++) {
             inputFields.push(
                 <Space key={`sp-${i}`}style={{ width: 'calc(50% - 20px)'}} direction="vertical">
-                    <Input id={`${(i * 4) + 1}`} onChange={handleInputChange} style={{ width: 'calc(100% - 20px)' }} addonBefore="0x" defaultValue={defaultCiphertext} value={ciphertexts[(i * 4) + 1 - 1]} />
-                    <Input id={`${(i * 4) + 2}`} onChange={handleInputChange} style={{ width: 'calc(100% - 20px)' }} addonBefore="0x" defaultValue={defaultCiphertext} value={ciphertexts[(i * 4) + 2 - 1]} />
-                    <Input id={`${(i * 4) + 3}`} onChange={handleInputChange} style={{ width: 'calc(100% - 20px)' }} addonBefore="0x" defaultValue={defaultCiphertext} value={ciphertexts[(i * 4) + 3 - 1]} />
-                    <Input id={`${(i * 4) + 4}`} onChange={handleInputChange} style={{ width: 'calc(100% - 20px)' }} addonBefore="0x" defaultValue={defaultCiphertext} value={ciphertexts[(i * 4) + 4 - 1]} />
+                    <Input data-testid={`input-${(i * 4) + 1}`} id={`${(i * 4) + 1}`} onChange={handleInputChange} style={{ width: 'calc(100% - 20px)' }} addonBefore="0x" defaultValue={defaultCiphertext} value={ciphertexts[(i * 4) + 1 - 1]} />
+                    <Input data-testid={`input-${(i * 4) + 2}`} id={`${(i * 4) + 2}`} onChange={handleInputChange} style={{ width: 'calc(100% - 20px)' }} addonBefore="0x" defaultValue={defaultCiphertext} value={ciphertexts[(i * 4) + 2 - 1]} />
+                    <Input data-testid={`input-${(i * 4) + 3}`} id={`${(i * 4) + 3}`} onChange={handleInputChange} style={{ width: 'calc(100% - 20px)' }} addonBefore="0x" defaultValue={defaultCiphertext} value={ciphertexts[(i * 4) + 3 - 1]} />
+                    <Input data-testid={`input-${(i * 4) + 4}`} id={`${(i * 4) + 4}`} onChange={handleInputChange} style={{ width: 'calc(100% - 20px)' }} addonBefore="0x" defaultValue={defaultCiphertext} value={ciphertexts[(i * 4) + 4 - 1]} />
                 </Space>
             )
         }
@@ -103,13 +103,13 @@ const Demo = () => {
             <Divider />
             <div style={{textAlign: 'center'}}>
                 <br></br>
-                <p>Input <Select defaultValue={defaultNumCiphertexts} onChange={handleSelectNumCiphertexts} style={{ width: '60px'}} options={numCiphertextsOptions}/> <b>32-bit</b> ciphertexts for <Select defaultValue={defaultNumRounds} onChange={handleSelectNumRounds} style={{ width: '60px'}} options={numRoundsOptions}/> rounds of Speck: </p>
+                <p>Input <Select data-testid='numCiphertexts' defaultValue={defaultNumCiphertexts} onChange={handleSelectNumCiphertexts} style={{ width: '60px'}} options={numCiphertextsOptions}/> <b>32-bit</b> ciphertexts for <Select data-testid='numRounds' defaultValue={defaultNumRounds} onChange={handleSelectNumRounds} style={{ width: '60px'}} options={numRoundsOptions}/> rounds of Speck: </p>
                 <br></br>
                 {renderInputFields(numCiphertexts)}
                 <br></br>
                 <br></br>
                 <br></br>
-                <Button onClick={handleSubmit} style={{width: 'calc(20% - 20px)', minWidth:'200px'}} type="primary" block>Run ND</Button>
+                <Button data-testid='submitDemo' onClick={handleSubmit} style={{width: 'calc(20% - 20px)', minWidth:'200px'}} type="primary" block>Run ND</Button>
             </div>
             <br></br>
             <div style={{textAlign: 'center', margin: '10px 0'}}>
