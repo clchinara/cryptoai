@@ -13,6 +13,7 @@ TOTAL_BITS = 32 * NUM_PLAINTEXTS
 class TestInv1SpeckFunctions(unittest.TestCase):
 
     def test_convert_to_binary_positive(self):
+        print('TEST test_convert_to_binary_positive:')
         # Positive case: len(ciphertexts_lr) // 2 == NUM_PLAINTEXTS
         ciphertexts_lr = [0x5b02, 0x4900, 0x5b42, 0x4900, 0x5b56, 0x4100, 0x5b16, 0x4100]
         n = 20
@@ -21,12 +22,15 @@ class TestInv1SpeckFunctions(unittest.TestCase):
             ciphertexts_lr_npy.append(np.array([clr] * n))
         actual = convert_to_binary(ciphertexts_lr_npy)
         self.assertTrue(np.all(np.logical_or(actual == 0, actual == 1)))
+        print('√ It should only contain 0s or 1s')
         self.assertEqual(actual.shape[0], n)
         self.assertEqual(actual.shape[1], len(ciphertexts_lr) // 2 * 32)
         self.assertEqual(actual.shape[1], TOTAL_BITS)
-        print("All assertions passed successfully in test_convert_to_binary_positive")
+        print(f'√ It should have the shape (n, {TOTAL_BITS})')
+        print("PASSED test_convert_to_binary_positive.")
     
     def test_convert_to_binary_negative(self):
+        print('TEST test_convert_to_binary_negative:')
         # Negative case: len(ciphertexts_lr) // 2 != NUM_PLAINTEXTS
         ciphertexts_lr = [0x5b02, 0x4900, 0x5b42, 0x4900, 0x5b56, 0x4100, 0x5b16]
         n = 20
@@ -35,9 +39,11 @@ class TestInv1SpeckFunctions(unittest.TestCase):
             ciphertexts_lr_npy.append(np.array([clr] * n))
         with self.assertRaises(IndexError):
             convert_to_binary(ciphertexts_lr_npy)
-        print("All assertions passed successfully in test_convert_to_binary_negative")
+        print('√ It should raise error for invalid number of input ciphertexts')
+        print("PASSED test_convert_to_binary_negative.")
 
     def test_make_train_data_positive(self):
+        print('TEST test_make_train_data_positive:')
         # Positive case: Valid number of rounds
         n = 20
         num_rounds = [5, 6, 7, 8]
@@ -50,17 +56,25 @@ class TestInv1SpeckFunctions(unittest.TestCase):
             self.assertEqual(actualX1.shape[0], actualY1.shape[0])
             self.assertEqual(actualX1.shape[0], n)
             self.assertEqual(actualX1.shape[1], TOTAL_BITS)
-        print("All assertions passed successfully in test_make_train_data_positive")
+        print('√ It should be non-deterministic')
+        print('√ Y should only contain 0s or 1s')
+        print('√ Y must at least have a 0 and a 1')
+        print('√ X.shape[0] must be equal to Y.shape[0], and they must be equal to n')
+        print(f'√ X.shape[1] must be equal to {TOTAL_BITS}')
+        print("PASSED test_make_train_data_positive.")
     
     def test_make_train_data_negative(self):
+        print('TEST test_make_train_data_negative:')
         # Negative case: Invalid number of rounds
         n = 20
         nr = 0
         with self.assertRaises(IndexError):
             make_train_data(n, nr)
-        print("All assertions passed successfully in test_make_train_data_negative")
+        print('√ It should raise error for invalid number of input rounds')
+        print("PASSED test_make_train_data_negative.")
 
     def test_encrypt_positive(self):
+        print('TEST test_encrypt_positive:')
         # Positive case: Valid number of rounds
         n = 20
         num_rounds = [5, 6, 7, 8]
@@ -74,9 +88,12 @@ class TestInv1SpeckFunctions(unittest.TestCase):
             self.assertEqual(actualr.shape[0], n)
             self.assertTrue(np.all(actuall <= 2 ** 32))
             self.assertTrue(np.all(actualr <= 2 ** 32))
-        print("All assertions passed successfully in test_encrypt_positive")
+        print('√ left.shape[0] and right.shape[0] must be equal to n')
+        print('√ Every value in left and right must be 32-bit')
+        print("PASSED test_encrypt_positive.")
     
     def test_encrypt_negative(self):
+        print('TEST test_encrypt_positive:')
         # Negative case: Invalid number of rounds
         n = 20
         nr = 0
@@ -86,7 +103,8 @@ class TestInv1SpeckFunctions(unittest.TestCase):
         with self.assertRaises(IndexError):
             ks = expand_key(keys, nr);
             encrypt((plainl, plainr), ks);
-        print("All assertions passed successfully in test_encrypt_negative")
+        print('√ It should raise error for invalid number of input rounds')
+        print("PASSED test_encrypt_negative.")
 
 if __name__ == '__main__':
     unittest.main()
