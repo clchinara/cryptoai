@@ -1,0 +1,35 @@
+TEST test_combine_left_right_boundary:
+√ It should correctly combine the two 16-bit values into a 32-bit for low boundary case
+√ It should correctly combine the two 16-bit values into a 32-bit for high boundary case
+PASSED test_combine_left_right_boundary.
+.TEST test_combine_left_right_negative:
+√ It should not correctly combine the two non-16-bit values
+PASSED test_combine_left_right_negative.
+.TEST test_combine_left_right_positive:
+√ It should correctly combine the two 16-bit values into a 32-bit
+PASSED test_combine_left_right_positive.
+.TEST test_extract_left_right_boundary:
+√ It should correctly extract the 32-bit value into two 16-bits for low boundary case
+√ It should correctly extract the 32-bit value into two 16-bits for high boundary case
+PASSED test_extract_left_right_boundary.
+.TEST test_extract_left_right_negative:
+√ It should not correctly extract the non-32-bit value
+PASSED test_extract_left_right_negative.
+.TEST test_extract_left_right_positive:
+√ It should correctly extract the 32-bit value into two 16-bits
+PASSED test_extract_left_right_positive.
+.TEST test_parse_hex_string_boundary:
+√ It should return the correct parsed value for low boundary case
+√ It should return the correct parsed value for high boundary case
+PASSED test_parse_hex_string_boundary.
+.TEST test_parse_hex_string_negative:
+√ It should raise error for invalid hex string
+PASSED test_parse_hex_string_negative.
+.TEST test_parse_hex_string_positive:
+√ It should return the correct parsed value
+PASSED test_parse_hex_string_positive.
+.
+----------------------------------------------------------------------
+Ran 9 tests in 0.000s
+
+OK
