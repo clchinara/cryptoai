@@ -1,0 +1,649 @@
+{
+	"info": {
+		"_postman_id": "89dc2701-57d8-4248-a0d8-492d6f34de6b",
+		"name": "FIT3162 CryptoAI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13331185"
+	},
+	"item": [
+		{
+			"name": "Root",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[Demo] 4-ciphertext, Y = 0",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"numCiphertexts\": 4,\n    \"ciphertexts\": [\"7bb7675a\", \"b79ac10f\", \"5b312932\", \"6572aa15\"],\n    \"numRounds\": 5\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/demo",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"demo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[Demo] 8-ciphertext, Y = 1",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"numCiphertexts\": 8,\n    \"ciphertexts\": [\"91388718\", \"5b024900\", \"3c5b84\", \"6e07aa9e\", \"bab1a320\", \"c1e344e3\", \"e0d1eb76\", \"58af279a\"],\n    \"numRounds\": 5\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/demo",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"demo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[Demo] 200",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"numCiphertexts\": 8,\n    \"ciphertexts\": [\"91388718\", \"5b024900\", \"3c5b84\", \"6e07aa9e\", \"bab1a320\", \"c1e344e3\", \"e0d1eb76\", \"58af279a\"],\n    \"numRounds\": 5\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/demo",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"demo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[Demo] 400 Exceeding 32-bit",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"numCiphertexts\": 8,\n    \"ciphertexts\": [\"9131188718\", \"5b024900\", \"3c5b84\", \"6e07aa9e\", \"bab1a320\", \"c1e344e3\", \"e0d1eb76\", \"58af279a\"],\n    \"numRounds\": 5\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/demo",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"demo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[Demo] 400 Missing fields",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"numCiphertexts\": 8,\n    \"numRounds\": 5\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/demo",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"demo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[Demo] 400 Invalid value",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"numCiphertexts\": 8,\n    \"ciphertexts\": [\"91388718\", \"5b024900\", \"3c5b84\", \"6e07aa9e\", \"bab1a320\", \"c1e344e3\", \"e0d1eb76\", \"58af279a\"],\n    \"numRounds\": 9\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/demo",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"demo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[Demo] 400 Length does not match",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"numCiphertexts\": 8,\n    \"ciphertexts\": [\"5b024900\", \"3c5b84\", \"6e07aa9e\", \"bab1a320\", \"c1e344e3\", \"e0d1eb76\", \"58af279a\"],\n    \"numRounds\": 5\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/demo",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"demo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[Demo] 500 Internal error",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"numCiphertexts\": 8,\n    \"ciphertexts\": [\"91388718\", \"5b024900\", \"3c5b84\", \"6e07aa9e\", \"bab1a320\", \"c1e344e3\", \"e0d1eb76\", \"58af279a\"],\n    \"numRounds\": 8\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/demo",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"demo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[Demo] 8-ciphertext, Y = 0",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"numCiphertexts\": 8,\n    \"ciphertexts\": [\"7bb7675a\", \"b79ac10f\", \"5b312932\", \"6572aa15\", \"632ccd79\", \"d52d5713\", \"29bc9461\", \"2a145082\"],\n    \"numRounds\": 5\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/demo",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"demo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[Eval] inv1",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"inv\": \"inv1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/eval",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"eval"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[Eval] inv3",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"inv\": \"inv3\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/eval",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"eval"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[Eval] 200",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"inv\": \"inv1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/eval",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"eval"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[Eval] 400 Missing fields",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/eval",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"eval"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[Eval] 400 Invalid value",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"inv\": \"inv2\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/eval",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"eval"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[Speck] 4-ciphertext, nr = 5",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"numPlaintexts\": 4,\n    \"plaintexts\": [\"5b024900\", \"5b424900\", \"5b564100\", \"5b164100\"],\n    \"numRounds\": 5\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/speck",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"speck"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[Speck] 200",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"numPlaintexts\": 4,\n    \"plaintexts\": [\"5b024900\", \"5b424900\", \"5b564100\", \"5b164100\"],\n    \"numRounds\": 5\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/speck",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"speck"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[Speck] 400 Exceeding 32-bit",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"numPlaintexts\": 4,\n    \"plaintexts\": [\"5b024900100\", \"5b424900\", \"5b564100\", \"5b164100\"],\n    \"numRounds\": 5\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/speck",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"speck"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[Speck] 400 Missing fields",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"numPlaintexts\": 4,\n    \"plaintexts\": [\"5b024900\", \"5b424900\", \"5b564100\", \"5b164100\"]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/speck",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"speck"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[Speck] 400 Invalid value",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"numPlaintexts\": 5,\n    \"plaintexts\": [\"5b024900\", \"5b424900\", \"5b564100\", \"5b164100\"],\n    \"numRounds\": 5\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/speck",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"speck"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[Speck] 400 Length does not match",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"numPlaintexts\": 4,\n    \"plaintexts\": [\"5b424900\", \"5b564100\", \"5b164100\"],\n    \"numRounds\": 5\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/speck",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"speck"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
