@@ -1,4 +1,5 @@
 # cryptoai
+An MVP dashboard to showcase results from my FYP, which was acknowledged as one of the top five computer science projects in S2-2023 at Monash University Malaysia. 
 
 ## Running the client
 
